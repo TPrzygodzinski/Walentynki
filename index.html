@@ -2,6 +2,8 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
+  <!-- Meta tag viewport dla poprawnego skalowania na urządzeniach mobilnych -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Czy zostaniesz moją walentynką?</title>
   <style>
     body {
@@ -17,20 +19,29 @@
     }
     .container {
       background: #fff;
-      padding: 20px 40px;
+      padding: 40px 60px; /* Większy padding */
       border-radius: 10px;
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
       text-align: center;
       animation: fadeIn 1s ease-in-out;
       z-index: 1;
       position: relative;
-      max-width: 600px; /* Maksymalna szerokość */
-      width: 90%;       /* Elastyczna szerokość */
+      max-width: 800px; /* Powiększona szerokość dla komputerów */
+      width: 90%;
+    }
+    /* Zwiększony rozmiar tekstu w nagłówkach i paragrafach */
+    .container h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .container p {
+      font-size: 1.3rem;
+      margin: 10px 0;
     }
     button {
       padding: 10px 20px;
       margin: 10px;
-      font-size: 16px;
+      font-size: 1.1rem; /* Większy rozmiar tekstu w przyciskach */
       border: none;
       border-radius: 5px;
       background-color: #ff6f61;
@@ -43,7 +54,7 @@
     }
     input[type="time"] {
       padding: 5px;
-      font-size: 16px;
+      font-size: 1.1rem;
       margin-top: 10px;
     }
     @keyframes fadeIn {
@@ -84,13 +95,20 @@
         opacity: 0;
       }
     }
-    /* Dodatkowa responsywność na telefonie */
+    /* Responsywność dla małych ekranów */
     @media (max-width: 600px) {
       .container {
         padding: 15px 20px;
+        width: 100%;
+        max-width: none;
+      }
+      .container h2 {
+        font-size: 1.8rem;
+      }
+      .container p, button, input[type="time"] {
+        font-size: 1rem;
       }
       button {
-        font-size: 14px;
         padding: 8px 16px;
       }
       .sad-cat, .happy-cat {
@@ -290,7 +308,7 @@
       summaryHTML += `<p><strong>miejsce:</strong> ${answers.transport || ""}</p>`;
       summaryHTML += `<p><strong>godzina:</strong> ${answers.czas || ""}</p>`;
       summaryHTML += "<p>Zrób screena i mi wyślij!</p>";
-      summaryHTML += `<div class="happy-cat">😸XXX</div>`;
+      summaryHTML += `<div class="happy-cat">😸</div>`;
       
       container.innerHTML = summaryHTML;
     }
