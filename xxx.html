@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Czy zostaniesz moją walentynką?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .container {
+      background: #fff;
+      padding: 20px 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+      z-index: 1;
+      position: relative;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff6f61;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #ff3b2e;
+    }
+    input[type="time"] {
+      padding: 5px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .sad-cat {
+      font-size: 80px;
+      animation: bounce 1s infinite;
+    }
+    .happy-cat {
+      font-size: 80px;
+      animation: bounce 1s infinite;
+      margin-top: 20px;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    /* Spadające serca */
+    .heart {
+      position: fixed;
+      top: -50px;
+      pointer-events: none;
+      z-index: 0;
+      color: rgba(255, 0, 0, 0.8);
+      font-size: 24px;
+      animation-name: fall;
+      animation-timing-function: linear;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="quiz-container">
+    <!-- Zawartość będzie generowana dynamicznie -->
+  </div>
+
+  <script>
+    let answers = {};
+
+    function clearContainer() {
+      document.getElementById('quiz-container').innerHTML = '';
+    }
+
+    function startQuiz() {
+      answers = {}; // Resetujemy odpowiedzi
+      clearContainer();
+      const container = document.getElementById('quiz-container');
+
+      const question = document.createElement('h2');
+      question.textContent = "Czy zostaniesz moją walentynką?";
+      container.appendChild(question);
+
+      const btnYes = document.createElement('button');
+      btnYes.textContent = "Tak";
+      btnYes.onclick = function() {
+        answers.walentynka = "Tak";
+        askActivity();
+      };
+      container.appendChild(btnYes);
+
+      const btnNo = document.createElement('button');
+      btnNo.textContent = "Nie";
+      btnNo.onclick = function() {
+        answers.walentynka = "Nie";
+        showRejection();
+      };
+      container.appendChild(btnNo);
+    }
+
+    function showRejection() {
+      clearContainer();
+      const container = document.getElementById('quiz-container');
+
+      const message = document.createElement('h2');
+      message.textContent = "Bardzo mi przykro :(";
+      container.appendChild(message);
+
+      const sadCat = document.createElement('div');
+      sadCat.className = "sad-cat";
+      sadCat.textContent = "😿";
+      container.appendChild(sadCat);
+
+      // Przycisk "Zacznij od nowa"
+      const restartBtn = document.createElement('button');
+      restartBtn.textContent = "Zacznij od nowa";
+      restartBtn.onclick = startQuiz;
+      container.appendChild(restartBtn);
+    }
+
+    function askActivity() {
+      clearContainer();
+      const container = document.getElementById('quiz-container');
+
+      const question = document.createElement('h2');
+      question.textContent = "Co chcesz robić? Randka na zewnątrz czy zostać w domu?";
+      container.appendChild(question);
+
+      const btnOutside = document.createElement('button');
+      btnOutside.textContent = "Randka na zewnątrz";
+      btnOutside.onclick = function() {
+        answers.miejsce = "Na zewnątrz";
+        askFoodPreference();
+      };
+      container.appendChild(btnOutside);
+
+      const btnHome = document.createElement('button');
+      btnHome.textContent = "Zostać w domu";
+      btnHome.onclick = function() {
+        answers.miejsce = "W domu";
+        askDay();
+      };
+      container.appendChild(btnHome);
+    }
+
+    function askFoodPreference() {
+      clearContainer();
+      const container = document.getElementById('quiz-container');
+
+      const question = document.createElement('h2');
+      question.textContent = "Czy wolisz coś fastfoodowego czy coś ciekawego?";
+      container.appendChild(question);
+
+      const btnFastFood = document.createElement('button');
+      btnFastFood.textContent = "Fast Food";
+      btnFastFood.onclick = function() {
+        answers.jedzenie = "Fast Food";
+        askDay();
+      };
+      container.appendChild(btnFastFood);
+
+      const btnInteresting = document.createElement('button');
+      btnInteresting.textContent = "Ciekawe";
+      btnInteresting.onclick = function() {
+        answers.jedzenie = "Ciekawe";
+        askDay();
+      };
+      container.appendChild(btnInteresting);
+    }
+
+    function askDay() {
+      clearContainer();
+      const container = document.getElementById('quiz-container');
+
+      const question = document.createElement('h2');
+      question.textContent = "Czy wolisz piątek czy sobotę?";
+      container.appendChild(question);
+
+      const btnFriday = document.createElement('button');
+      btnFriday.textContent = "Piątek";
+      btnFriday.onclick = function() {
+        answers.dzien = "Piątek";
+        askTravel();
+      };
+      container.appendChild(btnFriday);
+
+      const btnSaturday = document.createElement('button');
+      btnSaturday.textContent = "Sobota";
+      btnSaturday.onclick = function() {
+        answers.dzien = "Sobota";
+        askTravel();
+      };
+      container.appendChild(btnSaturday);
+    }
+
+    function askTravel() {
+      clearContainer();
+      const container = document.getElementById('quiz-container');
+
+      const question = document.createElement('h2');
+      question.textContent = "Czy przyjedziesz do mnie, czy ja mam przyjechać do Ciebie?";
+      container.appendChild(question);
+
+      const btnYouCome = document.createElement('button');
+      btnYouCome.textContent = "U Werki";
+      btnYouCome.onclick = function() {
+        answers.transport = "U Werki";
+        askTime();
+      };
+      container.appendChild(btnYouCome);
+
+      const btnImComing = document.createElement('button');
+      btnImComing.textContent = "U Tomeczka";
+      btnImComing.onclick = function() {
+        answers.transport = "U Tomeczka";
+        askTime();
+      };
+      container.appendChild(btnImComing);
+    }
+
+    function askTime() {
+      clearContainer();
+      const container = document.getElementById('quiz-container');
+
+      const question = document.createElement('h2');
+      question.textContent = "O której się umawiamy?";
+      container.appendChild(question);
+
+      const timeInput = document.createElement('input');
+      timeInput.type = "time";
+      container.appendChild(timeInput);
+
+      const btnNext = document.createElement('button');
+      btnNext.textContent = "Dalej";
+      btnNext.onclick = function() {
+        answers.czas = timeInput.value;
+        showSummary();
+      };
+      container.appendChild(btnNext);
+    }
+
+    function showSummary() {
+      clearContainer();
+      const container = document.getElementById('quiz-container');
+
+      // Tworzymy podsumowanie w ustalonej kolejności
+      let summaryHTML = "<h2>Podsumowanie:</h2>";
+      summaryHTML += "<p><strong style='color:red;'>Zostanę twoją walentynką!!!</strong></p>";
+      summaryHTML += `<p><strong>gdzie:</strong> ${answers.miejsce || ""}</p>`;
+      summaryHTML += `<p><strong>jedzenie:</strong> ${answers.jedzenie || "Zrobimy sami"}</p>`;
+      summaryHTML += `<p><strong>dzień:</strong> ${answers.dzien || ""}</p>`;
+      summaryHTML += `<p><strong>miejsce:</strong> ${answers.transport || ""}</p>`;
+      summaryHTML += `<p><strong>godzina:</strong> ${answers.czas || ""}</p>`;
+      summaryHTML += "<p>Zrób screena i mi wyślij!</p>";
+      // Dodaj szczęśliwego kotka
+      summaryHTML += `<div class="happy-cat">😸</div>`;
+      
+      container.innerHTML = summaryHTML;
+    }
+
+    // Funkcja tworząca spadające serca
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      const size = 20 + Math.random() * 30;
+      heart.style.fontSize = size + 'px';
+      const duration = 5 + Math.random() * 5;
+      heart.style.animationDuration = duration + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => {
+        heart.remove();
+      }, duration * 1000);
+    }
+    // Spadające serca co 250 ms
+    setInterval(createHeart, 250);
+
+    // Start quizu po załadowaniu strony
+    startQuiz();
+  </script>
+</body>
+</html>
