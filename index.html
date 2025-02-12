@@ -24,6 +24,8 @@
       animation: fadeIn 1s ease-in-out;
       z-index: 1;
       position: relative;
+      max-width: 600px; /* Maksymalna szerokość */
+      width: 90%;       /* Elastyczna szerokość */
     }
     button {
       padding: 10px 20px;
@@ -80,6 +82,19 @@
       100% {
         transform: translateY(110vh);
         opacity: 0;
+      }
+    }
+    /* Dodatkowa responsywność na telefonie */
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px 20px;
+      }
+      button {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+      .sad-cat, .happy-cat {
+        font-size: 60px;
       }
     }
   </style>
@@ -267,7 +282,6 @@
       clearContainer();
       const container = document.getElementById('quiz-container');
 
-      // Tworzymy podsumowanie w ustalonej kolejności
       let summaryHTML = "<h2>Podsumowanie:</h2>";
       summaryHTML += "<p><strong style='color:red;'>Zostanę twoją walentynką!!!</strong></p>";
       summaryHTML += `<p><strong>gdzie:</strong> ${answers.miejsce || ""}</p>`;
@@ -276,13 +290,11 @@
       summaryHTML += `<p><strong>miejsce:</strong> ${answers.transport || ""}</p>`;
       summaryHTML += `<p><strong>godzina:</strong> ${answers.czas || ""}</p>`;
       summaryHTML += "<p>Zrób screena i mi wyślij!</p>";
-      // Dodaj szczęśliwego kotka
       summaryHTML += `<div class="happy-cat">😸</div>`;
       
       container.innerHTML = summaryHTML;
     }
 
-    // Funkcja tworząca spadające serca
     function createHeart() {
       const heart = document.createElement('div');
       heart.className = 'heart';
@@ -297,10 +309,8 @@
         heart.remove();
       }, duration * 1000);
     }
-    // Spadające serca co 250 ms
     setInterval(createHeart, 250);
 
-    // Start quizu po załadowaniu strony
     startQuiz();
   </script>
 </body>
